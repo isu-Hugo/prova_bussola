@@ -1,5 +1,5 @@
 <p>listagem-computadores works!</p>
-@for (item of computadores; track $index) {
-  <p>{{item}}</p>
+@for (item of computadores(); track $index) {
+  <p>{{item | json}}</p>
 }
 <button (click)="listarComputadores()">listar</button>

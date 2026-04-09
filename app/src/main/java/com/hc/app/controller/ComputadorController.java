@@ -22,7 +22,9 @@ public class ComputadorController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Long id){
         var response = this.computadorService.findById(id);
-        return ResponseEntity.ok(response);
+        if (response.isPresent())return ResponseEntity.ok(response);
+        return ResponseEntity.notFound().build();
+
     }
 
     @GetMapping
@@ -34,13 +36,15 @@ public class ComputadorController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long idComputador, @RequestBody ComputadorEntity computador){
         var response = this.computadorService.update(idComputador, computador);
-        return ResponseEntity.ok(response);
+        if (response.isPresent()) return ResponseEntity.ok(response);
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id){
         var response = this.computadorService.deleteComputador(id);
-        return ResponseEntity.ok(response);
+        if (response.isPresent()) return ResponseEntity.ok(response);
+        return ResponseEntity.notFound().build();
     }
 
 

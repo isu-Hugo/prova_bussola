@@ -26,14 +26,17 @@ public class PerifericoController {
     public ResponseEntity<?> deletePeriferico(@PathVariable("idComp") Long idComp, @PathVariable("idPeri") Long idPeri){
 //        Aqui eu tambem poderia excluir apenas pelo id do periferico
         var periferico = this.perifericoService.findById(idPeri);
-        var response = this.computadorService.removePerierico(idComp, periferico);
+        if (periferico.isEmpty()) return ResponseEntity.notFound().build();
+
+        this.computadorService.removePerierico(idComp, periferico.get());
         return ResponseEntity.ok(periferico);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePeriferico(@PathVariable("id") Long id , @RequestBody PerifericoEntity periferico){
         var response = this.perifericoService.updatePeriferico(id, periferico);
-        return ResponseEntity.ok(response);
+        if (response.isPresent()) return ResponseEntity.ok(response);
+        return ResponseEntity.notFound().build();
     }
 
 

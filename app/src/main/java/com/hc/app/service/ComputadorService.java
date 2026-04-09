@@ -33,22 +33,21 @@ public class ComputadorService {
     }
 
 //    UPDATE
-    public ComputadorEntity update(Long idComputador, ComputadorEntity novocomputador){
+    public Optional<ComputadorEntity> update(Long idComputador, ComputadorEntity novocomputador){
         return this.computadorRepository.findById(idComputador)
                 .map(computadorEntity -> {
                     computadorEntity.setNome(novocomputador.getNome());
                     computadorEntity.setCor(novocomputador.getCor());
                     computadorEntity.setDataFabricacao(novocomputador.getDataFabricacao());
                     return this.computadorRepository.save(computadorEntity);
-                })
-                .orElseThrow();
+                });
     }
 
 //    DELETE
-    public ComputadorEntity deleteComputador(Long idComputador){
-        var compuador = this.computadorRepository.findById(idComputador).orElseThrow();
+    public Optional<ComputadorEntity> deleteComputador(Long idComputador){
+        var computador = this.computadorRepository.findById(idComputador);
         this.computadorRepository.deleteById(idComputador);
-        return compuador;
+        return computador;
     }
 
 

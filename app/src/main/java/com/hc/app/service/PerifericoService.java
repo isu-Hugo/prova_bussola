@@ -5,6 +5,8 @@ import com.hc.app.repository.PerifericoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PerifericoService {
     @Autowired
@@ -19,18 +21,17 @@ public class PerifericoService {
     }
 
 //    READ
-    public PerifericoEntity findById(Long idPeriferico){
-        return this.perifericoRepository.findById(idPeriferico).orElseThrow();
+    public Optional<PerifericoEntity> findById(Long idPeriferico){
+        return this.perifericoRepository.findById(idPeriferico);
     }
 
 //    UPDATE
-    public PerifericoEntity updatePeriferico(Long idPeriferico, PerifericoEntity newPeriferico){
+    public Optional<PerifericoEntity> updatePeriferico(Long idPeriferico, PerifericoEntity newPeriferico){
         return this.perifericoRepository.findById(idPeriferico)
                 .map(periferico -> {
                     periferico.setNome(newPeriferico.getNome());
                     return this.perifericoRepository.save(periferico);
-                })
-                .orElseThrow();
+                });
     }
 
 //    DELETE

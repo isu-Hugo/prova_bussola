@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/periferico")
+@CrossOrigin("*")
 public class PerifericoController {
     @Autowired
     private PerifericoService perifericoService;
@@ -18,7 +19,7 @@ public class PerifericoController {
     @PostMapping("/{id}")
     public ResponseEntity<?> createPeriferico(@PathVariable("id") Long id, @RequestBody PerifericoEntity periferico){
         var response = this.computadorService.addPeriferico(id, periferico);
-        return ResponseEntity.ok(periferico);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{idComp}/{idPeri}")

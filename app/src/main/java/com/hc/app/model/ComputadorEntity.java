@@ -27,9 +27,10 @@ public class ComputadorEntity {
     @OneToMany(mappedBy = "computador", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PerifericoEntity> perifericos;
 
-    public void addPeriferic(PerifericoEntity periferico){
+    public PerifericoEntity addPeriferic(PerifericoEntity periferico){
         periferico.setComputador(this);
         this.perifericos.add(periferico);
+        return periferico;
     }
 
     public void removePerierico(PerifericoEntity periferico){

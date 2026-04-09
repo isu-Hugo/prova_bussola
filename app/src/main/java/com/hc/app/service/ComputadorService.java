@@ -3,6 +3,7 @@ package com.hc.app.service;
 import com.hc.app.model.ComputadorEntity;
 import com.hc.app.model.PerifericoEntity;
 import com.hc.app.repository.ComputadorRepository;
+import com.hc.app.repository.PerifericoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class ComputadorService {
     @Autowired
     private ComputadorRepository computadorRepository;
+    @Autowired
+    private PerifericoRepository perifericoRepository;
 
 //    CREATE
     public ComputadorEntity create(ComputadorEntity computador){
@@ -50,10 +53,11 @@ public class ComputadorService {
 
 
 //    UPDATE
-    public ComputadorEntity addPeriferico(Long idComputador, PerifericoEntity periferico){
+    public PerifericoEntity addPeriferico(Long idComputador, PerifericoEntity periferico){
         var computador = this.computadorRepository.findById(idComputador).orElseThrow();
-        computador.addPeriferic(periferico);
-        return this.computadorRepository.save(computador);
+        var p = computador.addPeriferic(periferico);
+        return this.perifericoRepository.save(p);
+//        return this.computadorRepository.save(computador);
     }
 
 //    UPDATE

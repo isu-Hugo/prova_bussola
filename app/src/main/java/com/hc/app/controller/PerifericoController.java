@@ -19,7 +19,8 @@ public class PerifericoController {
     @PostMapping("/{id}")
     public ResponseEntity<?> createPeriferico(@PathVariable("id") Long id, @RequestBody PerifericoEntity periferico){
         var response = this.computadorService.addPeriferico(id, periferico);
-        return ResponseEntity.ok(response);
+        if (response.isPresent()) return ResponseEntity.ok(response);
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{idComp}/{idPeri}")

@@ -52,10 +52,12 @@ public class ComputadorService {
 
 
 //    UPDATE
-    public PerifericoEntity addPeriferico(Long idComputador, PerifericoEntity periferico){
-        var computador = this.computadorRepository.findById(idComputador).orElseThrow();
-        var p = computador.addPeriferic(periferico);
-        return this.perifericoRepository.save(p);
+    public Optional<PerifericoEntity> addPeriferico(Long idComputador, PerifericoEntity periferico){
+        var computador = this.computadorRepository.findById(idComputador);
+        if (computador.isEmpty()) return Optional.empty();
+
+        var p = computador.get().addPeriferic(periferico);
+        return Optional.of(this.perifericoRepository.save(p));
 //        return this.computadorRepository.save(computador);
     }
 

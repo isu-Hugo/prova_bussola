@@ -1,5 +1,37 @@
-<p>listagem-computadores works!</p>
-@for (item of computadores(); track $index) {
-  <p>{{item | json}}</p>
-}
-<button (click)="listarComputadores()">listar</button>
+<div class="container">
+
+
+  @for (item of computadoresList(); track item.id) {
+    <div class="row border m-4">
+      <h6>Computador</h6>
+      <p>Nome: {{item.nome}}</p>
+      <p>Cor: {{item.cor}}</p>
+      <p>Data de Fabricação: {{item.dataFabricacao}}</p>
+
+      <h6>perifericos</h6>
+      <div class="d-flex border flex-column mt-3 mb-3">
+        @for (i of item.perifericos; track $index) {
+          <div class="d-flex flex-row">
+            <p>{{i.nome}}</p>
+            <button (click)="deletePeriferico(item.id, i.id)" class="btn btn-sm">Delete</button>
+            <button (click)="updatePeriferico(i.id)" class="btn btn-sm">update</button>
+          </div>
+        }@empty {
+          <p>Nenhum periferico</p>
+        }
+
+        <button (click)="novoPeriferico(item.id)">Novo periferico</button>
+
+      </div>
+
+      <button (click)="deleteComputador(item.id)">Delete</button>
+      <button (click)="updateComputador(item.id)">Update</button>
+
+    </div>
+  }@empty {
+    <p>Nenhum computador</p>
+  }
+
+  <button (click)="criarComputador()">Criar</button>
+
+</div>

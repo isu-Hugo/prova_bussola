@@ -26,10 +26,8 @@ export class Home implements OnInit {
       next: (res) =>{
         this.computadoresList = res;
         // this.computadoresList.set(res);
-        console.log(this.computadoresList);
       },
       error: (err) =>{
-        console.error(err);
       }
     })
   }
